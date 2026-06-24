@@ -557,6 +557,85 @@
     margin-top: 60px;
   }
   .doc-footer span { color: var(--gold); }
+
+  /* ─── MOBILE RESPONSIVE ─── */
+  @media (max-width: 768px) {
+
+    /* Cover */
+    .cover { padding: 40px 20px 36px; }
+    .cover h1 { font-size: 1.8em; }
+    .cover-sub { font-size: 0.95em; }
+    .cover-meta { gap: 18px; }
+    .meta-num { font-size: 1.5em; }
+
+    /* Container */
+    .container { padding: 24px 14px 60px; }
+
+    /* Section headings */
+    .section-title { font-size: 1.35em; }
+
+    /* Phase cards */
+    .phase-header {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .phase-owner { font-size: 0.75em; }
+
+    /* Steps row → single column */
+    .steps-row { grid-template-columns: 1fr; }
+
+    /* Upgrade header */
+    .upgrade-header { padding: 16px 18px; }
+    .upgrade-header-text h3 { font-size: 1em; }
+
+    /* Upgrade body */
+    .upgrade-body { padding: 18px 16px; }
+
+    /* Problem/solution → single column */
+    .prob-sol { grid-template-columns: 1fr; }
+
+    /* Numbered steps */
+    .num-step-text strong { font-size: 0.9em; }
+
+    /* Board grid → 2 columns */
+    .board-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Tables → horizontal scroll */
+    .resp-table { font-size: 0.8em; }
+    .resp-table th,
+    .resp-table td { padding: 8px 10px; }
+    .upgrade-card { overflow-x: auto; }
+
+    /* Override form */
+    .override-form { font-size: 0.8em; padding: 16px; }
+    .form-field { flex-wrap: wrap; }
+    .form-field label { min-width: unset; }
+
+    /* Checklist grid → single column */
+    .checklist-grid { grid-template-columns: 1fr; }
+
+    /* Divider text */
+    .divider-text { font-size: 0.72em; letter-spacing: 1px; }
+
+    /* Alert boxes */
+    .alert-box { padding: 14px 14px; }
+
+    /* Rule box */
+    .rule-box { padding: 16px 16px; }
+
+    /* Footer */
+    .doc-footer { font-size: 0.78em; padding: 18px; }
+  }
+
+  @media (max-width: 420px) {
+    .cover h1 { font-size: 1.55em; }
+    .cover-meta { gap: 14px; }
+    .meta-num { font-size: 1.3em; }
+    .meta-label { font-size: 0.72em; }
+    .phase-num { width: 36px; height: 36px; font-size: 1em; }
+    .board-grid { grid-template-columns: repeat(2, 1fr); }
+    .board-cell { padding: 8px 6px; font-size: 0.7em; }
+  }
 </style>
 </head>
 <body>
@@ -565,7 +644,7 @@
 <div class="cover">
   <div class="cover-badge">INTERNAL OPERATIONS DOCUMENT</div>
   <h1>Nations of Sky<br><span>Mirror Protocol</span></h1>
-  <p class="cover-sub">دليل العمليات الكامل ليوم الإطلاق — النسخة المحدّثة v2</p>
+  <p class="cover-sub">Operations Guide — Launch Day</p>
   <div class="cover-divider"></div>
   <div class="cover-meta">
     <div class="meta-item">
@@ -574,9 +653,6 @@
     </div>
     <div class="meta-item">
       <span class="meta-num">3</span>
-      <span class="meta-label">تحسينات جديدة</span>
-    </div>
-    <div class="meta-item">
       <span class="meta-num">15</span>
       <span class="meta-label">دقيقة Mutex Lock</span>
     </div>
