@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nations of Sky — Mirror Protocol v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0c2340;
+    --gold:   #c5a059;
+    --gold-light: #e8d5a3;
+    --white:  #ffffff;
+    --offwhite: #f7f5f0;
+    --light:  #eef2f3;
+    --text:   #1a1a2e;
+    --muted:  #6b7280;
+    --green:  #1a7a4a;
+    --green-bg: #e8f5ee;
+    --red:    #c0392b;
+    --red-bg: #fdf0ee;
+    --amber:  #b45309;
+    --amber-bg: #fffbeb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    background: var(--navy);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(197,160,89,0.04) 40px,
+      rgba(197,160,89,0.04) 41px
+    );
+  }
+  .cover-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 4px 18px;
+    border-radius: 30px;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .cover h1 {
+    font-size: 2.6em;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .cover h1 span { color: var(--gold); }
+  .cover-sub {
+    font-size: 1.1em;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .cover-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto 30px;
+    border-radius: 2px;
+    position: relative;
+  }
+  .cover-meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .meta-item { text-align: center; }
+  .meta-num {
+    font-size: 2em;
+    font-weight: 800;
+    color: var(--gold);
+    display: block;
+  }
+  .meta-label {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ─── CONTAINER ─── */
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* ─── SECTION TITLE ─── */
+  .section-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 1.7em;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .section-intro {
+    color: var(--muted);
+    font-size: 1em;
+    margin-bottom: 30px;
+    max-width: 700px;
+  }
+
+  /* ─── PHASE CARD ─── */
+  .phase-card {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .phase-num {
+    width: 44px;
+    height: 44px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+  .phase-title-block { flex: 1; }
+  .phase-name {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .phase-sub {
+    font-size: 0.85em;
+    color: var(--muted);
+  }
+  .phase-owner {
+    background: var(--light);
+    color: var(--navy);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .phase-body { padding: 24px; }
+  .phase-body p {
+    color: #374151;
+    margin-bottom: 16px;
+    font-size: 0.97em;
+  }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .step-item {
+    background: var(--offwhite);
+    border-radius: 12px;
+    padding: 16px;
+    border-right: 3px solid var(--gold);
+  }
+  .step-item strong {
+    display: block;
+    color: var(--navy);
+    font-size: 0.9em;
+    margin-bottom: 5px;
+  }
+  .step-item span {
+    font-size: 0.85em;
+    color: #4b5563;
+  }
+
+  /* offline box */
+  .offline-box {
+    background: #fff8e1;
+    border: 1px solid #f5c842;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .offline-box .offline-title {
+    font-weight: 700;
+    color: #92400e;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .offline-box ul {
+    padding-right: 18px;
+    font-size: 0.88em;
+    color: #78350f;
+  }
+  .offline-box li { margin-bottom: 4px; }
+
+  /* system action box */
+  .action-box {
+    background: var(--green-bg);
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 0.88em;
+    color: #065f46;
+  }
+  .action-box strong { display: block; margin-bottom: 4px; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 50px 0 40px;
+  }
+  .divider-line { flex: 1; height: 1px; background: #e5e7eb; }
+  .divider-text {
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ─── UPGRADE CARDS ─── */
+  .upgrade-section { margin-bottom: 50px; }
+
+  .upgrade-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 5px 16px;
+    border-radius: 30px;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .upgrade-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 24px;
+  }
+  .upgrade-header {
+    background: var(--navy);
+    padding: 20px 26px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .upgrade-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(197,160,89,0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    flex-shrink: 0;
+  }
+  .upgrade-header-text h3 {
+    color: white;
+    font-size: 1.15em;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .upgrade-header-text p {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.82em;
+  }
+
+  .upgrade-body { padding: 26px; }
+
+  /* problem / solution blocks */
+  .prob-sol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .prob-sol { grid-template-columns: 1fr; } }
+
+  .prob-block, .sol-block {
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .prob-block {
+    background: var(--red-bg);
+    border: 1px solid #fca5a5;
+  }
+  .sol-block {
+    background: var(--green-bg);
+    border: 1px solid #a7f3d0;
+  }
+  .prob-block .block-label {
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .sol-block .block-label {
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .prob-block p, .sol-block p {
+    font-size: 0.88em;
+    color: #374151;
+    line-height: 1.7;
+  }
+
+  /* rule box */
+  .rule-box {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-top: 20px;
+  }
+  .rule-box .rule-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .rule-box p {
+    color: rgba(255,255,255,0.88);
+    font-size: 0.9em;
+    line-height: 1.7;
+  }
+
+  /* steps numbered */
+  .numbered-steps { margin-top: 20px; }
+  .num-step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .num-bubble {
+    width: 30px;
+    height: 30px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85em;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .num-step-text strong {
+    display: block;
+    font-size: 0.93em;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .num-step-text span {
+    font-size: 0.87em;
+    color: #4b5563;
+  }
+
+  /* board visual */
+  .board-visual {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: monospace;
+    overflow-x: auto;
+  }
+  .board-title {
+    color: var(--gold);
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .board-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .board-cell {
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 0.75em;
+  }
+  .board-cell .unit-num { font-weight: bold; margin-bottom: 3px; font-size: 1.1em; }
+  .board-cell .unit-status { font-size: 0.85em; }
+  .board-cell.avail { background: #1a4731; color: #4ade80; }
+  .board-cell.locked { background: #78350f; color: #fbbf24; }
+  .board-cell.sold { background: #1e1b4b; color: #818cf8; }
+
+  /* table */
+  .resp-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.9em; }
+  .resp-table th {
+    background: var(--navy);
+    color: var(--gold);
+    padding: 10px 14px;
+    text-align: right;
+    font-weight: 600;
+  }
+  .resp-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #374151;
+    vertical-align: top;
+  }
+  .resp-table tr:last-child td { border-bottom: none; }
+  .resp-table tr:nth-child(even) td { background: #f9fafb; }
+
+  /* override form */
+  .override-form {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 12px;
+    padding: 22px;
+    margin-top: 20px;
+    font-family: monospace;
+    font-size: 0.88em;
+  }
+  .form-title {
+    text-align: center;
+    font-weight: bold;
+    color: var(--navy);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .form-field {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .form-field label {
+    color: #374151;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9em;
+    white-space: nowrap;
+    min-width: 130px;
+  }
+  .form-field .form-line {
+    flex: 1;
+    border-bottom: 1px solid #9ca3af;
+    min-width: 100px;
+  }
+
+  /* alert box */
+  .alert-box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .alert-box.info { background: #eff6ff; border: 1px solid #bfdbfe; }
+  .alert-box.warn { background: var(--amber-bg); border: 1px solid #fde68a; }
+  .alert-box.danger { background: var(--red-bg); border: 1px solid #fca5a5; }
+  .alert-icon { font-size: 1.3em; flex-shrink: 0; }
+  .alert-text { font-size: 0.88em; color: #374151; line-height: 1.7; }
+  .alert-text strong { color: var(--navy); display: block; margin-bottom: 4px; }
+
+  /* checklist */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .check-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .check-num {
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .check-title {
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    font-size: 0.95em;
+  }
+  .check-body { font-size: 0.84em; color: #4b5563; line-height: 1.6; }
+
+  /* footer */
+  .doc-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 24px;
+    font-size: 0.82em;
+    margin-top: 60px;
+  }
+  .doc-footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">INTERNAL OPERATIONS DOCUMENT</div>
+  <h1>Nations of Sky<br><span>Mirror Protocol</span></h1>
+  <p class="cover-sub">دليل العمليات الكامل ليوم الإطلاق — النسخة المحدّثة v2</p>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    <div class="meta-item">
+      <span class="meta-num">5</span>
+      <span class="meta-label">مراحل تشغيلية</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">3</span>
+      <span class="meta-label">تحسينات جديدة</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">15</span>
+      <span class="meta-label">دقيقة Mutex Lock</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">15555</span>
+      <span class="meta-label">خط Customer Excellence</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div style="background: white; border-radius: 16px; padding: 28px; margin-bottom: 40px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <div class="section-label">نظرة عامة</div>
+    <div class="section-title">ما هو الـ Mirror Protocol؟</div>
+    <p style="color: #374151; line-height: 1.9; margin-bottom: 16px;">
+      الـ Mirror Protocol هو الدليل التشغيلي الرسمي ليوم الإطلاق. فكرته الأساسية بسيطة: كل خطوة بتحصل رقمياً على النظام، بتتعمل نسخة منها ورقياً في نفس الوقت. يعني لو النظام وقع أي لحظة، الفريق مش بيوقف — بيكمل على الورق ويعوّض النظام بعدين.
+    </p>
+    <p style="color: #374151; line-height: 1.9;">
+      هذه النسخة تضم <strong>التحسينات الثلاثة الجديدة</strong> التي تُغلق الثغرات الأساسية في النسخة الأولى.
+    </p>
+
+    <div class="alert-box info" style="margin-top: 20px;">
+      <div class="alert-icon">📄</div>
+      <div class="alert-text">
+        <strong>القاعدة الذهبية — لا تتغير أبداً</strong>
+        في أي خلاف بين ما هو مكتوب في النظام وما هو موجود على الورق — الورق هو الصح دائماً. النظام هو الذي يتصحح، لا العكس.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PHASES ═══ -->
+  <div class="section-label">المراحل التشغيلية</div>
+  <div class="section-title">رحلة العميل من أول اتصال لآخر خطوة</div>
+  <p class="section-intro">خمس مراحل متسلسلة، كل مرحلة ليها فريق مسؤول ومخرج واضح قبل الانتقال للمرحلة التالية.</p>
+
+  <!-- PHASE 1 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div class="phase-title-block">
+        <div class="phase-name">الحجز المسبق والتأكيد</div>
+        <div class="phase-sub">قبل يوم الإطلاق بـ 48 ساعة على الأقل</div>
+      </div>
+      <div class="phase-owner">فريق الحجوزات</div>
+    </div>
+    <div class="phase-body">
+      <p>رحلة العميل بتبدأ قبل ما يصل بفترة. الهدف إن كل عميل يوصل وعنده موعد مؤكد وكود QR جاهز في تليفونه.</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <strong>📩 خطوة 1 — إرسال الموعد</strong>
+          <span>العميل يستلم واتساب فيه تاريخ ووقت زيارته للمعرض، وعنوان المعرض، وتذكير إنه يجيب شيك بنكي.</span>
+        </div>
+        <div class="step-item">
+          <strong>✅ خطوة 2 — تأكيد العميل</strong>
+          <span>العميل يرد بالتأكيد على الواتساب. أي عميل ما ردش بيتصلوا به قبل موعده بساعتين.</span>
+        </div>
+        <div class="step-item">
+          <strong>📲 خطوة 3 — إرسال كود QR</strong>
+          <span>بمجرد التأكيد، النظام يولّد كود QR خاص بالعميل ويبعته واتساب. الكود بيشتغل يوم موعده بس.</span>
+        </div>
+      </div>
+      <div class="action-box">
+        <strong>✅ مسؤولية فريق الحجوزات قبل ما تقفلوا ملف العميل:</strong>
+        تأكدوا إن العميل استلم الكود فعلاً قبل تحديد حالته كـ "جاهز للحضور". لو الرسالة ما وصلتش، ابعتوا تاني.
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div class="phase-title-block">
+        <div class="phase-name">الاستقبال وتوزيع الأدوار</div>
+        <div class="phase-sub">من لحظة دخول العميل للمعرض</div>
+      </div>
+      <div class="phase-owner">فريق الاستقبال</div>
+    </div>
+    <div class="phase-body">
+      <p>هذه المرحلة بتأكد إن كل عميل داخل للمعرض معروف بالاسم، مسجّل في النظام، وعنده رقم دور واضح.</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <strong>📷 مسح الكود</strong>
+          <span>العميل يمسح الـ QR في الكاونتر. النظام يسجّله "وصل" تلقائياً.</span>
+        </div>
+        <div class="step-item">
+          <strong>🎟️ طباعة تذكرة الدور</strong>
+          <span>الطابعة بتطلع تذكرة فيها رقم الدور ورقم الحجز.</span>
+        </div>
+        <div class="step-item">
+          <strong>📱 واتساب ترحيبي</strong>
+          <span>النظام يبعت للعميل واتساب فيه رقم دوره ووقت انتظار تقريبي.</span>
+        </div>
+      </div>
+      <div class="offline-box">
+        <div class="offline-title">⚠️ لو النظام وقع — الإجراء البديل</div>
+        <ul>
+          <li>فريق الاستقبال يفتح ملف الـ Excel المحفوظ محلياً على الجهاز (مش الـ Google Sheet)</li>
+          <li>بحث عن اسم العميل وتعليم إنه "وصل"</li>
+          <li>توزيع أرقام دور يدوياً بالتسلسل من السجل الورقي</li>
+          <li>تذكرة بتتكتب يدوياً وتُعطى للعميل</li>
+          <li>لما النظام يرجع: تسجيل كل الإدخالات اليدوية خلال 30 دقيقة</li>
+        </ul>
+      </div>
+      <div class="alert-box warn" style="margin-top: 14px;">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text">
+          <strong>تنبيه مهم</strong>
+          أي عميل سجّل يدوياً أوفلاين، لازم تُسوّى بياناته في النظام قبل ما يدخل المرحلة 3. مفيش عميل يعمل حجز وسط بيانات ناقصة.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div class="phase-title-block">
+        <div class="phase-name">اختيار الوحدة وتسجيل الحجز</div>
+        <div class="phase-sub">المرحلة الأهم — المعاملة المالية</div>
+      </div>
+      <div class="phase-owner">الأجنت المبيعات</div>
+    </div>
+    <div class="phase-body">
+      <p>العميل بيقابل الأجنت، بيختار وحدته، والنظام بيعمل "قفل مؤقت" لمدة 15 دقيقة عشان محدش تاني يقدر يحجزها في نفس الوقت.</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <strong>👤 تعيين أجنت</strong>
+          <span>العميل بيتقابل مع أجنت محدد حسب رقم دوره. الأجنت شايف بيانات العميل على شاشته.</span>
+        </div>
+        <div class="step-item">
+          <strong>🔒 القفل المؤقت (Mutex Lock)</strong>
+          <span>بمجرد اختيار الوحدة، الأجنت يشغّل القفل. من دول مفيش أجنت تاني يقدر يحجز نفس الوحدة لمدة 15 دقيقة.</span>
+        </div>
+        <div class="step-item">
+          <strong>📝 طباعة إيصال الحجز</strong>
+          <span>بعد موافقة العميل، الطابعة تطلع إيصال فيه: رقم الوحدة، السعر، مبلغ الحجز، وخانة توقيع العميل.</span>
+        </div>
+        <div class="step-item">
+          <strong>💰 استلام الشيك</strong>
+          <span>الأجنت بيستلم الشيك البنكي، بيكتب رقم الشيك والبنك والمبلغ على الإيصال، ويسلّم الشيك للـ Finance Runner فوراً في ظرف مختوم.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div class="phase-title-block">
+        <div class="phase-name">التأكيد النهائي وتسجيل البيع</div>
+        <div class="phase-sub">الوحدة تنتقل رسمياً لـ "مباعة"</div>
+      </div>
+      <div class="phase-owner">الأجنت + Customer Excellence</div>
+    </div>
+    <div class="phase-body">
+      <p>بعد توقيع الإيصال واستلام الشيك، الأجنت بيضغط "تأكيد نهائي" في النظام. من اللحظة دي الوحدة بتُسجّل كـ مباعة ومفيش حد تاني ممكن يشوفها في الإتاحة.</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <strong>🔴 الوحدة تبقى SOLD</strong>
+          <span>النظام يغيّر حالة الوحدة بشكل نهائي. هذا الإجراء لا يمكن التراجع عنه إلا بموافقة المشرف المختص.</span>
+        </div>
+        <div class="step-item">
+          <strong>📱 واتساب للعميل</strong>
+          <span>رسالة تلقائية فيها: اسم العميل، رقم الوحدة، المبلغ المدفوع، رقم الخط 15555، ورابط بوابة المتابعة.</span>
+        </div>
+        <div class="step-item">
+          <strong>☎️ تفعيل خط 15555</strong>
+          <span>فريق Customer Excellence يستلم تنبيه فوري ولازم يتواصل مع العميل خلال ساعتين من التأكيد.</span>
+        </div>
+        <div class="step-item">
+          <strong>✅ الأجنت يتحرر</strong>
+          <span>بعد إتمام البيع، الأجنت يبقى متاحاً للعميل التالي في قائمة الانتظار.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div class="phase-title-block">
+        <div class="phase-name">المراجعة المالية في نهاية اليوم</div>
+        <div class="phase-sub">قبل ما أي حد يمشي من المعرض</div>
+      </div>
+      <div class="phase-owner">الفريق المالي</div>
+    </div>
+    <div class="phase-body">
+      <p>في نهاية كل يوم إطلاق، الفريق المالي بيعمل مراجعة شاملة يتأكد فيها إن كل حجز عنده إيصال ورقي موقّع وشيك بنكي مطابق.</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <strong>📋 مطابقة الإيصالات</strong>
+          <span>كل إيصال ورقي بيتطابق مع البيانات في النظام برقم الحجز، رقم الوحدة، واسم العميل.</span>
+        </div>
+        <div class="step-item">
+          <strong>✔️ التحقق من الشيكات</strong>
+          <span>كل الشيكات بتتعدّ وتتطابق مع المبالغ المكتوبة في الإيصالات، وتُحفظ في الخزنة بتوقيعين.</span>
+        </div>
+        <div class="step-item">
+          <strong>⚖️ قاعدة الخلاف</strong>
+          <span>لو في فرق بين النظام والورق — الورق هو الصح. النظام بيتصلح عشان يتطابق مع الورق، مش العكس.</span>
+        </div>
+        <div class="step-item">
+          <strong>📊 تقرير نهاية اليوم</strong>
+          <span>تقرير بعدد الوحدات المباعة، إجمالي مبالغ الحجز، وأي خلافات. بيتوزع على القيادة قبل نهاية الدوام.</span>
+        </div>
+      </div>
+      <div class="alert-box info" style="margin-top: 16px;">
+        <div class="alert-icon">ℹ️</div>
+        <div class="alert-text">
+          <strong>شرط الإغلاق</strong>
+          لا يُغلق يوم الإطلاق رسمياً إلا بعد توقيع المدير المالي ومدير العمليات على تقرير المراجعة.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══ IMPROVEMENTS ═══ -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">التحسينات الثلاثة الجديدة</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 36px; border: 1px solid #e5e7eb;">
+    <p style="color: #374151; line-height: 1.9;">
+      النسخة الأولى من الـ Protocol كانت فيها ثلاث ثغرات حقيقية ممكن تعمل مشاكل كبيرة يوم الإطلاق. الثلاث تحسينات اللي جايين بتغلق هذه الثغرات بشكل عملي وبسيط.
+    </p>
+  </div>
+
+  <!-- ─── IMPROVEMENT 1 ─── -->
+  <div class="upgrade-section">
+    <div class="upgrade-badge">⚡ تحسين رقم 1</div>
+    <div class="upgrade-card">
+      <div class="upgrade-header">
+        <div class="upgrade-icon">💾</div>
+        <div class="upgrade-header-text">
+          <h3>استبدال الـ Google Sheet بـ Backup حقيقي</h3>
+          <p>الـ Google Sheet مش Offline Backup — هو نفسه بيحتاج إنترنت</p>
+        </div>
+      </div>
+      <div class="upgrade-body">
+        <div class="prob-sol">
+          <div class="prob-block">
+            <div class="block-label">❌ المشكلة في النسخة القديمة</div>
+            <p>البروتوكول القديم كان بيقول "لو النظام وقع، ارجع للـ Google Sheet". لكن الـ Google Sheet نفسه محتاج إنترنت عشان تفتحه وتعدّل فيه — يعني لو الإنترنت قطع، قطع معاه الـ Sheet بالظبط في نفس اللحظة. مش بكره، مش بعدين — في نفس اللحظة.</p>
+          </div>
+          <div class="sol-block">
+            <div class="block-label">✅ الحل في النسخة الجديدة</div>
+            <p>الـ Google Sheet يبقى للمزامنة الرقمية بس. الـ Backup الحقيقي بيبقى إما ملف Excel محفوظ على كل جهاز في المعرض — أو قائمة مطبوعة ورقياً. الاتنين شغّالين من غير إنترنت.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.93em; color: #374151; margin-bottom: 18px;"><strong>في الممارسة العملية، في خيارين:</strong></p>
+
+        <div class="steps-row" style="margin-bottom: 20px;">
+          <div class="step-item">
+            <strong>📁 الخيار أ — ملف Excel محلي</strong>
+            <span>قبل يوم الإطلاق بـ 24 ساعة، بتحمّل ملف Excel على كل جهاز فيه بيانات العملاء المؤكدين. الملف موجود على الجهاز مش على الإنترنت. لما الإنترنت يرجع، بتأخذ اللي اتغيّر وبتدخله في النظام.</span>
+          </div>
+          <div class="step-item">
+            <strong>🖨️ الخيار ب — قائمة ورق مطبوعة</strong>
+            <span>على كل كاونتر بيبقى ورق مطبوع فيه أسماء العملاء ومواعيدهم وأكواد QR الخاصة بيهم، مع خانة فاضية يشيل فيها الموظف. الأبسط والأأمن.</span>
+          </div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">📌 القاعدة الجديدة</div>
+          <p>الـ Google Sheet للمزامنة الرقمية فقط — وليس للـ Backup الأوفلاين. الـ Backup الحقيقي هو ملف Excel المحلي على كل جهاز أو القائمة الورقية المطبوعة. العمل بالـ Backup يبدأ فور انقطاع الإنترنت، بدون انتظار.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── IMPROVEMENT 2 ─── -->
+  <div class="upgrade-section">
+    <div class="upgrade-badge">⚡ تحسين رقم 2</div>
+    <div class="upgrade-card">
+      <div class="upgrade-header">
+        <div class="upgrade-icon">🔒</div>
+        <div class="upgrade-header-text">
+          <h3>قفل الوحدات يدوياً وقت الأوفلاين</h3>
+          <p>منع الحجز المزدوج لما النظام يوقع</p>
+        </div>
+      </div>
+      <div class="upgrade-body">
+        <div class="prob-sol">
+          <div class="prob-block">
+            <div class="block-label">❌ المشكلة في النسخة القديمة</div>
+            <p>الـ Mutex Lock بتاع "15 دقيقة" ده موجود في السيرفر بس. لو النظام وقع وعندك أجنتين اتنين بيحاولوا يبيعوا نفس الوحدة على ورق — مفيش حاجة في الدنيا بتمنعهم. ودا معناه عميلين بيعتقدوا إنهم اشتروا نفس الوحدة.</p>
+          </div>
+          <div class="sol-block">
+            <div class="block-label">✅ الحل في النسخة الجديدة</div>
+            <p>بيبقى في شخص واحد بس اسمه "مسؤول القفل" (Lock Coordinator) وعنده لوحة كبيرة بكل الوحدات. مفيش أجنت يقدر يحجز وحدة من غير ما يمر على المسؤول ده. لوحدة — موافقة واحدة — من شخص واحد.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.93em; font-weight: 700; color: var(--navy); margin-bottom: 14px;">الإجراء خطوة بخطوة:</p>
+
+        <div class="numbered-steps">
+          <div class="num-step">
+            <div class="num-bubble">1</div>
+            <div class="num-step-text">
+              <strong>الأجنت يختار وحدة مع العميل</strong>
+              <span>الأجنت يمشي أو يتصل بمسؤول القفل ويقوله: "عايز أحجز وحدة A-105 لعميل محمد"</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">2</div>
+            <div class="num-step-text">
+              <strong>مسؤول القفل يبص على اللوحة</strong>
+              <span>يشوف هل الوحدة متاحة ولا لأ. لو متاحة: يكتب عليها "محجوز — اسم الأجنت — الساعة". لو مش متاحة: يقول للأجنت "اختار غيرها".</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">3</div>
+            <div class="num-step-text">
+              <strong>الأجنت يكمل مع العميل (15 دقيقة)</strong>
+              <span>خلال الـ 15 دقيقة، الوحدة دي مش ممكن أي حد تاني ياخدها — لأن اسمها موجود على اللوحة.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">4</div>
+            <div class="num-step-text">
+              <strong>النتيجة: بيعة أو إلغاء</strong>
+              <span>لو البيعة اتمت: مسؤول القفل يكتب "مباعة" باللون الأحمر. لو العميل راجع: المسؤول يمسح القفل والوحدة ترجع متاحة.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-visual">
+          <div class="board-title">🖥️ مثال على لوحة القفل — حالة أوفلاين</div>
+          <div class="board-grid">
+            <div class="board-cell avail">
+              <div class="unit-num">A-101</div>
+              <div class="unit-status">✓ متاحة</div>
+            </div>
+            <div class="board-cell locked">
+              <div class="unit-num">A-102</div>
+              <div class="unit-status">🔒 محجوزة<br>أجنت أحمد</div>
+            </div>
+            <div class="board-cell sold">
+              <div class="unit-num">A-103</div>
+              <div class="unit-status">✅ مباعة</div>
+            </div>
+            <div class="board-cell avail">
+              <div class="unit-num">A-104</div>
+              <div class="unit-status">✓ متاحة</div>
+            </div>
+            <div class="board-cell avail">
+              <div class="unit-num">A-105</div>
+              <div class="unit-status">✓ متاحة</div>
+            </div>
+            <div class="board-cell sold">
+              <div class="unit-num">A-106</div>
+              <div class="unit-status">✅ مباعة</div>
+            </div>
+            <div class="board-cell locked">
+              <div class="unit-num">B-201</div>
+              <div class="unit-status">🔒 محجوزة<br>أجنت سارة</div>
+            </div>
+            <div class="board-cell avail">
+              <div class="unit-num">B-202</div>
+              <div class="unit-status">✓ متاحة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-label">📌 القاعدة الجديدة</div>
+          <p>في حالة الأوفلاين، مفيش أجنت يقدر يحجز وحدة أو يبيعها من غير موافقة شفهية من مسؤول القفل. أي إيصال حجز بيتكتب لوحدة مش مكتوب اسمها على اللوحة — الإيصال ده باطل.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── IMPROVEMENT 3 ─── -->
+  <div class="upgrade-section">
+    <div class="upgrade-badge">⚡ تحسين رقم 3</div>
+    <div class="upgrade-card">
+      <div class="upgrade-header">
+        <div class="upgrade-icon">⚖️</div>
+        <div class="upgrade-header-text">
+          <h3>إجراء تغيير الحجز في حالات الطوارئ</h3>
+          <p>مين يوافق؟ إيه الخطوات؟ إيه الأوراق المطلوبة؟</p>
+        </div>
+      </div>
+      <div class="upgrade-body">
+        <div class="prob-sol">
+          <div class="prob-block">
+            <div class="block-label">❌ المشكلة في النسخة القديمة</div>
+            <p>البروتوكول القديم بيقول إن تغيير حالة "مباعة" ممكن بس بـ "موافقة المشرف" — وبس. مش مكتوب مين المشرف بالاسم، ولا إيه الإجراء، ولا الأوراق المطلوبة، ولا لو المشرف غايب إيه اللي بيحصل.</p>
+          </div>
+          <div class="sol-block">
+            <div class="block-label">✅ الحل في النسخة الجديدة</div>
+            <p>إجراء كامل ومكتوب بأسماء وأرقام وخطوات واضحة لكل سيناريو ممكن يحصل: حجز مزدوج، خطأ في الوحدة، عميل غيّر رأيه، أو مشكلة في الشيك.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.93em; font-weight: 700; color: var(--navy); margin: 20px 0 10px;">متى بيتفعّل هذا الإجراء؟</p>
+
+        <table class="resp-table">
+          <thead>
+            <tr>
+              <th>الموقف</th>
+              <th>من المسؤول؟</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>عميلان اشتريا نفس الوحدة بسبب خطأ في النظام</td>
+              <td>مدير المبيعات — فوري</td>
+            </tr>
+            <tr>
+              <td>الأجنت أكّد وحدة غلط بالخطأ</td>
+              <td>مدير المبيعات</td>
+            </tr>
+            <tr>
+              <td>العميل وقّع ودفع وطلب الإلغاء قبل مرور 30 دقيقة</td>
+              <td>مدير المبيعات + الفريق المالي</td>
+            </tr>
+            <tr>
+              <td>اتاخد شيك وظهر فيه مشكلة (مبلغ غلط أو مرفوض)</td>
+              <td>المدير المالي</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="font-size: 0.93em; font-weight: 700; color: var(--navy); margin: 22px 0 12px;">الخطوات من أول لآخر:</p>
+
+        <div class="numbered-steps">
+          <div class="num-step">
+            <div class="num-bubble">1</div>
+            <div class="num-step-text">
+              <strong>الأجنت يوقف كل حاجة</strong>
+              <span>ما يكمّلش في أي إجراء ثاني ويعتذر للعميل بأدب ويوضح إن في خطوة تحقق بسيطة.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">2</div>
+            <div class="num-step-text">
+              <strong>يتصل بالمسؤول فوراً</strong>
+              <span>بيقوله: رقم الوحدة + اسم العميل + السبب بالضبط. المسؤول عنده 5 دقائق يرد.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">3</div>
+            <div class="num-step-text">
+              <strong>المسؤول بيجي بنفسه أو بيأذن صوتياً</strong>
+              <span>الإذن الصوتي مؤقت لحين التوقيع. ما ينفعش الأجنت يكمل بس على الإذن الصوتي لوحده.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">4</div>
+            <div class="num-step-text">
+              <strong>ملء نموذج التغيير ورقياً</strong>
+              <span>بيتطبع ويتوقع من المسؤول وبيتحفظ — مش اختياري، ده شرط لازم.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">5</div>
+            <div class="num-step-text">
+              <strong>المسؤول يدخل النظام بحسابه هو</strong>
+              <span>التغيير بيتعمل بـ credentials المسؤول تحديداً — مش حساب الأجنت. ده للحفاظ على سجل المسؤولية.</span>
+            </div>
+          </div>
+          <div class="num-step">
+            <div class="num-bubble">6</div>
+            <div class="num-step-text">
+              <strong>نسخة من النموذج للفريق المالي</strong>
+              <span>قبل مراجعة نهاية اليوم لازم يكون وصلتهم نسخة. ما ينفعش تعدي المراجعة من غير توثيق التغيير.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- override form -->
+        <div class="override-form">
+          <div class="form-title">📋 نموذج تغيير الحجز — Supervisor Override Form<br><small style="font-weight: normal; color: #6b7280;">(يُطبع 3 نسخ: الأجنت / الفريق المالي / الأرشيف)</small></div>
+          <div class="form-field"><label>التاريخ والوقت:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>رقم الوحدة:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>الحالة قبل التغيير:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>الحالة بعد التغيير:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>سبب التغيير:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>اسم الأجنت:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>اسم المسؤول المُجيز:</label><div class="form-line"></div></div>
+          <div class="form-field"><label>توقيع المسؤول:</label><div class="form-line"></div></div>
+        </div>
+
+        <div class="alert-box danger" style="margin-top: 20px;">
+          <div class="alert-icon">🚨</div>
+          <div class="alert-text">
+            <strong>لو المسؤول الأول غير متاح</strong>
+            مدير العمليات يقوم بدوره. لو الاتنين غير متاحين — العميل بيتاخد لمنطقة الانتظار المميزة ومفيش أي حاجة بتتعمل في النظام أو على الورق — لحد ما يجي مسؤول مخوّل. القرار ما ينفعش يتأجل أكتر من 10 دقائق.
+          </div>
+        </div>
+
+        <div class="rule-box" style="margin-top: 20px;">
+          <div class="rule-label">📌 القاعدة الجديدة</div>
+          <p>أي تغيير في حالة وحدة من "مباعة" لأي حالة تانية يحتاج: موافقة مسؤول مخوّل بالاسم + نموذج موقّع + نسخة للفريق المالي. بدون التلات حاجات دول — التغيير مش رسمي ومش معمول.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══ TEAM ROLES ═══ -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">توزيع المسؤوليات</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="section-label">الفرق والمهام</div>
+  <div class="section-title">من المسؤول عن إيه؟</div>
+  <p class="section-intro">كل فريق لازم يعرف مرحلته كويس — لكن لازم يعرف كمان المراحل التانية عشان يقدر يساعد لو في ضغط.</p>
+
+  <div class="upgrade-card" style="margin-bottom: 36px;">
+    <div style="padding: 0;">
+      <table class="resp-table">
+        <thead>
+          <tr>
+            <th>الفريق</th>
+            <th>المرحلة الأساسية</th>
+            <th>المهام الرئيسية</th>
+            <th>التصعيد لـ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>فريق الحجوزات</strong></td>
+            <td>المرحلة 1</td>
+            <td>إرسال واتساب، متابعة التأكيدات، التحقق من وصول كود QR</td>
+            <td>مدير العمليات</td>
+          </tr>
+          <tr>
+            <td><strong>فريق الاستقبال</strong></td>
+            <td>المرحلة 2</td>
+            <td>مسح الأكواد، تسجيل الحضور، إدارة ملف Excel الأوفلاين، طباعة التذاكر</td>
+            <td>مدير العمليات</td>
+          </tr>
+          <tr>
+            <td><strong>أجنت المبيعات</strong></td>
+            <td>المراحل 3–4</td>
+            <td>عرض الوحدات، تفعيل القفل، إيصال الحجز، استلام الشيك، تأكيد البيع</td>
+            <td>مدير المبيعات</td>
+          </tr>
+          <tr>
+            <td><strong>مسؤول القفل</strong></td>
+            <td>المرحلة 3 (أوفلاين)</td>
+            <td>إدارة لوحة الوحدات يدوياً، تسجيل وإلغاء الحجوزات اليدوية</td>
+            <td>مدير المبيعات</td>
+          </tr>
+          <tr>
+            <td><strong>Customer Excellence</strong></td>
+            <td>المرحلة 4</td>
+            <td>إدارة خط 15555، التواصل مع العملاء بعد البيع، حل الاستفسارات</td>
+            <td>مدير Customer Excellence</td>
+          </tr>
+          <tr>
+            <td><strong>الفريق المالي</strong></td>
+            <td>المرحلة 5</td>
+            <td>مطابقة الإيصالات، التحقق من الشيكات، تقرير نهاية اليوم، استلام نماذج التغيير</td>
+            <td>المدير المالي</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ═══ READINESS CHECKLIST ═══ -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">قائمة التحقق</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="section-label">قبل فتح أبواب المعرض</div>
+  <div class="section-title">الـ Checklist الإلزامي</div>
+  <p class="section-intro">كل بند لازم تقدر تقول عليه "تم" قبل ما أول عميل يدخل. مفيش استثناءات.</p>
+
+  <div class="checklist-grid">
+    <div class="check-card">
+      <div class="check-num">01</div>
+      <div class="check-title">النظام الرقمي شغّال</div>
+      <div class="check-body">قاعدة البيانات، واتساب API، مولّد QR، والطابعات كلها شغالة. بيتعمل حجز تجريبي كامل قبل أول عميل.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">02</div>
+      <div class="check-title">الـ Backup الأوفلاين جاهز</div>
+      <div class="check-body">ملف Excel محمّل على كل جهاز في الاستقبال. القائمة الورقية مطبوعة وموزّعة. مش محتاج إنترنت عشان يشتغل.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">03</div>
+      <div class="check-title">أكواد QR وصلت للعملاء</div>
+      <div class="check-body">كل عميل مؤكد استلم كوده. الغير مؤكدين اتصلوا بيهم. جدول المواعيد متشارك مع الاستقبال والمبيعات.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">04</div>
+      <div class="check-title">مسؤول القفل جاهز ومتدرّب</div>
+      <div class="check-body">شخص متعيّن ومعروف بالاسم. اللوحة الكبيرة بكل الوحدات موجودة. يعرف إجراء القفل والإلغاء عن ظهر قلب.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">05</div>
+      <div class="check-title">الأجنت متدربين على الإجراءات</div>
+      <div class="check-body">كل أجنت يعرف: تفعيل القفل، ملء الإيصال، استلام الشيك، متى يتصل بمسؤول التغيير.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">06</div>
+      <div class="check-title">الفريق المالي مجهّز</div>
+      <div class="check-body">إيصالات فارغة متوفرة وموزّعة. ظروف الشيكات معنوّنة. نماذج التغيير مطبوعة. الخزنة متاحة.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">07</div>
+      <div class="check-title">أرقام التصعيد موزّعة</div>
+      <div class="check-body">كل فرد في الفريق عنده ورقة فيها: اسم المسؤول الأول، المسؤول البديل، ورقم تليفون كل واحد.</div>
+    </div>
+    <div class="check-card">
+      <div class="check-num">08</div>
+      <div class="check-title">Finance Runner جاهز</div>
+      <div class="check-body">شخص (أو أكتر) متعيّن بالاسم ومهمته استلام الشيكات من الأجنت وتسليمها للمالية فوراً طول اليوم.</div>
+    </div>
+  </div>
+
+  <div class="alert-box warn" style="margin-top: 28px; padding: 20px 22px;">
+    <div class="alert-icon">📌</div>
+    <div class="alert-text" style="font-size: 0.92em;">
+      <strong>التذكير الأخير قبل الإطلاق</strong>
+      الورق والشيك هما السجل القانوني دايماً. لو في شك — ارجع للورق. كل الفرق تبقى على تواصل مستمر، وأي مشكلة تتصعّد فوراً مش بعد ما تكبر. العميل يحس بالاحترافية في كل لحظة.
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <strong><span>Nations of Sky</span> — Mirror Protocol v2</strong><br>
+  وثيقة تشغيلية داخلية — للاستخدام الرسمي فقط
+</div>
+
+</body>
+</html>
